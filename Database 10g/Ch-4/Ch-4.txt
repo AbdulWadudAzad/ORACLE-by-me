@@ -1,0 +1,41 @@
+page 4-6
+select MAX(SALARY), MIN(SALARY), SUM(SALARY), AVG(SALARY)
+from employees
+WHERE JOB_ID LIKE '%REP%
+
+select MAX(SALARY), MIN(SALARY), SUM(SALARY), AVG(SALARY), ROUND( AVG(SALARY),2)
+from employees
+WHERE JOB_ID LIKE '%REP%';
+
+page 4-7
+select MIN(HIRE_DATE), MAX(HIRE_DATE) from employees;
+
+page 4-8
+select COUNT(*) from employees WHERE DEPARTMENT_ID = 50;
+select COUNT(COMMISSION_PCT) from employees WHERE DEPARTMENT_ID = 80;
+
+page 4-9
+select COUNT(DISTINCT DEPARTMENT_ID) from employees;
+
+page 4-10
+select AVG(COMMISSION_PCT) from employees;
+select AVG(NVL(COMMISSION_PCT,O)) from employees;
+
+page 4-13
+select DEPARTMENT_ID, AVG(SALARY) from employees GROUP BY DEPARTMENT_ID;
+
+page 4-14
+select AVG(SALARY) from employees GROUP BY DEPARTMENT_ID;
+select DEPARTMENT_ID, AVG(SALARY) from employees GROUP BY DEPARTMENT_ID ORDER BY AVG(SALARY);
+
+page 4-16
+select DEPARTMENT_ID DEPT_ID, JOB_ID, SUM(SALARY) from employees GROUP BY DEPARTMENT_ID, JOB_ID;
+
+page 4-17
+select DEPARTMENT_ID DEPT_ID, COUNT(LAST_NAME) from employees GROUP BY DEPARTMENT_ID, JOB_ID;
+
+page 4-18
+select DEPARTMENT_ID DEPT_ID, AVG(SALARY) from employees WHERE AVG(SALARY)>8000 GROUP BY DEPARTMENT_ID;
+select DEPARTMENT_ID DEPT_ID, AVG(SALARY) from employees GROUP BY DEPARTMENT_ID;
+
+page 4-18

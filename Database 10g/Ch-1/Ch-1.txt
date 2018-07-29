@@ -1,0 +1,41 @@
+select * from employees;
+
+page 1-5
+select * from departments;
+
+page 1-6
+select DEPARTMENT_ID, LOCATION_ID from departments;
+
+page 1-10
+select LAST_NAME, SALARY, SALARY+300 from employees;
+
+page 1-11
+select LAST_NAME, SALARY, 12*SALARY+100 from employees;
+
+select LAST_NAME, SALARY, 12*(SALARY+100) from employees;
+
+page 1-12
+select LAST_NAME, JOB_ID, SALARY, commission_pct from employees;
+
+page 1-13
+select LAST_NAME, 12*commission_pct from employees;
+
+page 1-15
+select LAST_NAME as name, 12*commission_pct as comm from employees;
+
+select LAST_NAME "Name", salary*12 "Annual Salary" from employees;
+
+page 1-16
+select SALARY||DEPARTMENT_ID from employees
+select SALARY||DEPARTMENT_ID as "Employee Details" from employees
+select SALARY||DEPARTMENT_ID as "Employees" from employees
+
+page 1-18
+select SALARY ||'is a'|| DEPARTMENT_ID as "Employee Details" from employees
+
+page 1-19
+select SALARY ||q'['is a']'|| DEPARTMENT_ID as "Employee Details" from employees
+
+page 1-20
+select distinct DEPARTMENT_ID from employees
+select distinct DEPARTMENT_ID, JOB_ID from employees

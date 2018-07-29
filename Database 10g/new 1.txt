@@ -1,0 +1,10 @@
+page-5-7
+select department_id, department_name, location_id, city from departments natural join locations
+
+page-5-7
+select department_id, department_name, location_id, city from departments natural join locations where department_id in (20, 50);
+select department_id, department_name, employee_id  from departments natural join employees;
+
+page-5-10
+select employees.employee_id, employees.last_name,  departments.location_id, department_id from employees join departments using (department_id) ;
+

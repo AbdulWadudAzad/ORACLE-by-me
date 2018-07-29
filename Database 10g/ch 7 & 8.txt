@@ -1,0 +1,39 @@
+page 7-9
+select employee_id, job_id from employees
+union
+select employee_id, job_id from job_history;
+
+page 7-11
+select employee_id, job_id from employees
+union all
+select employee_id, job_id from job_history;
+
+page 7-20
+select employee_id, job_id, salary from employees
+union
+select employee_id, job_id,0 from job_history;
+
+select employee_id, job_id, salary, last_name from employees
+union
+select employee_id, job_id,0,'' from job_history;
+
+
+
+page 8-6
+insert into departments(DEPARTMENT_ID,DEPARTMENT_NAME,MANAGER_ID,LOCATION_ID) values(280,'IDB',121,2400);
+
+page 8-8
+insert into employees (EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID) 
+values(207,'azad','wadud','AZAD','515.123.4568',sysdate,'IT_PROG',17000,.5,100,90);
+
+page 8-11
+
+
+page 8-14
+update employees set department_id=70 where employee_id = 113;
+
+/////////////////////////////////////////////////////Create  table/////////////////////////////////////////
+
+create table
+
+create table abc(id number(1) primary key not null, name varchar2(100) not null);

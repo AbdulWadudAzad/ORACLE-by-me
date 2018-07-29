@@ -1,0 +1,124 @@
+SQL> connect
+Enter user-name: system
+Enter password:
+Connected.
+SQL>
+
+SQL> set autocommit off;
+SQL> show autocommit;
+autocommit OFF
+
+SQL> create user qqq identified by qqq;
+
+User created.
+
+SQL> grant dba to qqq;
+
+Grant succeeded.
+
+
+SQL> set autocommit on;
+SQL> show autocommit;
+autocommit IMMEDIATE
+SQL> commit;
+
+Commit complete.
+
+SQL> connect;
+Enter user-name: qqq
+Enter password:
+Connected.
+
+SQL> create table abc(id number(11) primary key not null,name varchar2(255) not null);
+
+Table created.
+
+
+SQL>  insert into abc(id,name) values(1,'azad');
+
+1 row created.
+
+SQL> savepoint trans_1;
+
+Savepoint created.
+
+SQL>  insert into abc(id,name) values(2,'anas');
+
+1 row created.
+
+SQL> savepoint trans_2;
+
+Savepoint created.
+
+SQL> select * from abc;
+
+        ID
+----------
+NAME
+--------------------------------------------------------------------------------
+         1
+azad
+
+         2
+anas
+
+
+SQL>  insert into abc(id,name) values(3,'wadud');
+
+1 row created.
+
+SQL>  savepoint trans_3;
+
+Savepoint created.
+
+SQL>  insert into abc(id,name) values(4,'abdul');
+
+1 row created.
+
+SQL>  savepoint trans_4;
+
+Savepoint created.
+
+SQL> select * from abc;
+
+        ID
+----------
+NAME
+--------------------------------------------------------------------------------
+         1
+azad
+
+         2
+anas
+
+         3
+wadud
+
+
+        ID
+----------
+NAME
+--------------------------------------------------------------------------------
+         4
+abdul
+
+SQL> rollback to trans_2;
+
+Rollback complete.
+
+SQL> select * from abc;
+
+        ID
+----------
+NAME
+--------------------------------------------------------------------------------
+         1
+azad
+
+         2
+anas
+
+
+SQL>
+
+

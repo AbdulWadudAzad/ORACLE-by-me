@@ -1,0 +1,90 @@
+page 3-10
+select EMPLOYEE_ID, LAST_NAME, DEPARTMENT_ID from employees where LAST_NAME = 'higgins';
+select EMPLOYEE_ID, LAST_NAME, DEPARTMENT_ID from employees where lower(LAST_NAME) = 'higgins';
+select EMPLOYEE_ID, LAST_NAME, DEPARTMENT_ID from employees where upper(LAST_NAME) = 'HIGGINS';
+select EMPLOYEE_ID, upper(LAST_NAME), DEPARTMENT_ID from employees where INITCAP(LAST_NAME) = 'Higgins';
+
+page 3-12
+select EMPLOYEE_ID, CONCAT(FIRST_NAME, LAST_NAME) Name, JOB_ID, length (LAST_NAME), INSTR(LAST_NAME, 'a') "Contains 'a'?" 
+from employees
+where SUBSTR (LAST_NAME,-1,1)='n';
+
+page 3-14
+select ROUND(45.983,2), ROUND(45.923,2) , ROUND(45.923,-1) , ROUND(45.523,0) from dual ;
+
+page 3-15
+select TRUNC(45.983,2), TRUNC(45.923,2) , TRUNC(45.923,-1) , TRUNC(45.523,0), TRUNC(45.523,0) from dual ;
+
+page 3-16
+select LAST_NAME, SALARY, MOD(SALARY,500) from employees where JOB_ID ='SA_REP';
+select LAST_NAME, SALARY, MOD(SALARY,300) from employees where JOB_ID ='SA_REP';
+
+page 3-19
+Select sysdate from dual;
+
+page 3-21
+select last_name, (SYSDATE-hire_date)/7 AS WEEKS, round((SYSDATE-hire_date)/7,2) as "Round & Integar", round((SYSDATE-hire_date)/7) as Round from employees WHERE department_id=90;
+
+select last_name, (SYSDATE-hire_date)/30 AS month, round((SYSDATE-hire_date)/30,2) as "Round & Integar", round((SYSDATE-hire_date)/30) as Round from employees WHERE department_id=90;
+
+select last_name, (SYSDATE-hire_date)/365 AS year, round((SYSDATE-hire_date)/365,2) as "Round & Integar", round((SYSDATE-hire_date)/365) as Round from employees WHERE department_id=90;
+
+
+
+PAGE 3-42
+select LAST_NAME, HIRE_DATE, 
+ from employees
+where HIRE_DATE= TO_DATE('May 24, 1999', 'fxMonth DD, YYYY');
+
+select LAST_NAME, HIRE_DATE 
+ from employees
+where HIRE_DATE= TO_DATE('May 24, 1999', 'fmMonth DD, YYYY');
+
+page 3-44
+select LAST_NAME, TO_CHAR(HIRE_DATE, 'DD-Mon-YYYY')
+ from employees
+where HIRE_DATE < TO_DATE('01-Jan-90', 'DD-Mon-RR');
+
+page 3-46
+select last_name, substr(last_name,1,3), concat(substr(last_name,1,3),'_BD' ), upper(concat(substr(last_name,1,3),'_BD' )) from employees;
+
+page 3-50
+select last_name, salary, COMMISSION_PCT, NVL2 (COMMISSION_PCT,salary+COMMISSION_PCT,salary) income
+from employees;
+
+page 3-49
+select last_name, salary, NVL( COMMISSION_PCT,0), (salary*12)+(salary*12*NVL( COMMISSION_PCT,0)) an_sal from employees;
+
+page 3-51
+select first_name, LENGTH(first_name) "expr1", last_name, LENGTH(last_name) "expr2", NULLIF(LENGTH(first_name),  LENGTH(last_name)) RESULT from employees;
+
+page 3-56
+select LAST_NAME, JOB_ID, SALARY,  
+case JOB_ID when 'IT_PROG' then 1.10*SALARY
+when 'ST_CLERK' then 1.15*SALARY
+when 'SA_REP' then 1.20*SALARY
+ELSE SALARY END "REVISED_SALARY"
+from employees;
+
+page 3-58
+select LAST_NAME, JOB_ID, SALARY,  
+DECODE (JOB_ID, 'IT_PROG', 1.10*SALARY,
+ 'ST_CLERK', 1.15*SALARY,
+ 'SA_REP', 1.20*SALARY,
+SALARY) "REVISED_SALARY"
+from employees;
+
+page 3-59
+select LAST_NAME, SALARY,  
+DECODE (TRUNC(SALARY/2000, 0),
+0, 0.00,
+1, 0.09,
+2, 0.20,
+3, 0.30,
+4, 0.40,
+5, 0.42,
+6, 0.44,
+0.45) TAXT_RATE 
+from employees
+WHERE DEPARTMENT_ID=80;
+

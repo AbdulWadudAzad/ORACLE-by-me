@@ -1,0 +1,30 @@
+page 2-5
+select EMPLOYEE_ID, LAST_NAME, JOB_ID, DEPARTMENT_ID  from employees where DEPARTMENT_ID = 90;
+
+page 2-6
+select EMPLOYEE_ID, LAST_NAME, JOB_ID, DEPARTMENT_ID  from employees where LAST_NAME = 'King';
+
+page 2-7
+select EMPLOYEE_ID, LAST_NAME, JOB_ID, DEPARTMENT_ID, HIRE_DATE from employees where HIRE_DATE = '06/17/2003';
+select EMPLOYEE_ID, LAST_NAME, JOB_ID, SALARY, HIRE_DATE from employees where SALARY >= 6000;
+select EMPLOYEE_ID, LAST_NAME, JOB_ID, SALARY, HIRE_DATE from employees where LAST_NAME= 'Smith';
+
+page 2-8
+select EMPLOYEE_ID, LAST_NAME, JOB_ID, SALARY, HIRE_DATE from employees where SALARY <= 3000;
+
+page 2-9
+select EMPLOYEE_ID, LAST_NAME, JOB_ID, SALARY, HIRE_DATE from employees where SALARY between 2500 and 3500;
+select EMPLOYEE_ID, LAST_NAME, JOB_ID, SALARY, HIRE_DATE from employees where SALARY not between 2500 and 3500;
+
+page 2-10
+select EMPLOYEE_ID, LAST_NAME, JOB_ID, SALARY, MANAGER_ID, HIRE_DATE from employees where MANAGER_ID in (100,101,201);
+select EMPLOYEE_ID, LAST_NAME, JOB_ID, SALARY, MANAGER_ID, HIRE_DATE from employees where MANAGER_ID not in (100, 101, 201);
+
+page 2-11
+select EMPLOYEE_ID, LAST_NAME, JOB_ID, SALARY, MANAGER_ID, HIRE_DATE from employees where LAST_NAME like 'S%';
+select EMPLOYEE_ID, LAST_NAME, JOB_ID, SALARY, MANAGER_ID, HIRE_DATE from employees where LAST_NAME like '%s';
+select EMPLOYEE_ID, LAST_NAME, JOB_ID, SALARY, MANAGER_ID, HIRE_DATE from employees where LAST_NAME like '__i%';
+select EMPLOYEE_ID, LAST_NAME, JOB_ID, SALARY, MANAGER_ID, HIRE_DATE from employees where LAST_NAME like '__i__';
+
+page 2-13
+select EMPLOYEE_ID, LAST_NAME, JOB_ID, SALARY, MANAGER_ID, HIRE_DATE from employees where MANAGER_ID is null;

@@ -1,0 +1,30 @@
+page 6-4
+select * from employees where salary > (select salary from employees where LAST_NAME='Abel');
+select salary from employees where LAST_NAME='Abel';
+
+page 6-9
+select * from employees where JOB_ID =  (select JOB_ID from employees where EMPLOYEE_ID=141);
+
+select EMPLOYEE_ID, LAST_NAME, SALARY, JOB_ID from employees where JOB_ID =  (select JOB_ID from employees where EMPLOYEE_ID=141) and salary > (select salary from employees where EMPLOYEE_ID = 143);
+
+page 6-10
+select EMPLOYEE_ID, LAST_NAME, salary from employees where salary  =  (select min(salary)  from employees );
+select EMPLOYEE_ID, LAST_NAME, department_ID from employees where department_ID =  (select department_ID from employees where EMPLOYEE_ID=120);
+
+page 6-11
+select department_id, min(salary) from employees group by department_id having min(salary) >  (select min(salary)  from employees where department_id = 50);
+
+page 6-12
+select EMPLOYEE_ID, LAST_NAME from employees where salary  =  (select min(salary)  from employees group by department_id);
+
+page 6-15
+select EMPLOYEE_ID, salary, job_id, LAST_NAME from employees where salary  < any (select salary from employees where job_id = 'IT_PROG') and job_id <> 'IT_PROG';
+
+page 6-16
+select EMPLOYEE_ID, salary, job_id, LAST_NAME from employees where salary  < all  (select salary from employees where job_id = 'IT_PROG') and job_id <> 'IT_PROG';
+
+page 6-17
+
+
+
+page 6-12
