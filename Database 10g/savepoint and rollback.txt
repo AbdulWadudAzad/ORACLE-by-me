@@ -119,6 +119,11 @@ azad
 anas
 
 
-SQL>
+SQL>create table employee (
+id number(3) primary key, name varchar2(22) not null, salary number(7) check(salary > 5000),
+ mobile number(11) unique, curent_date date default sysdate, dep_id number(3), constraint dep_emp_fk foreign key (dep_id) references departments (name_of_department_column);
+
+
+)
 
 

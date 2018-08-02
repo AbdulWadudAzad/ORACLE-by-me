@@ -1,0 +1,23 @@
+SQL>  select * from teacher;
+
+      T_ID T_NAME                   SALARY     MOBILE JOINING_D
+---------- -------------------- ---------- ---------- ---------
+         1 azad                      60000 1265030110 30-JUL-18
+         2 wadud                     60000 1265030180 30-JUL-18
+         3 abdul                     70000 1265030410 30-JUL-18
+
+		
+		==========create index===================
+SQL> create index tech_idx on teacher(t_id);
+create index tech_idx on teacher(t_id)
+                                 *
+ERROR at line 1:
+ORA-01408: such column list already indexed
+
+
+=====================show index =====================
+select index_name from user_indexes;
+
+
+====================drop index======================
+drop index tech_idx(name of index);

@@ -1,0 +1,89 @@
+=====================create sequences=======================================================
+SQL> create sequence emp_seq_tble increment by 5 start with 1 maxvalue 200 nocycle nocache;
+
+Sequence created.
+
+===================create table with sequence======================================
+
+SQL> create table seq_emp_table (id number(3) primary key, name varchar2(30) not null, salary number(7) check(salary<50000));
+
+Table created.
+
+===================insert rows with sequence======================================
+
+SQL> insert into seq_emp_table(id,name,salary) values(emp_seq_tble.nextval, 'karim',5000);
+
+1 row created.
+
+SQL> insert into seq_emp_table(id,name,salary) values(emp_seq_tble.nextval, 'karim',5000);
+
+1 row created.
+
+SQL> insert into seq_emp_table(id,name,salary) values(emp_seq_tble.nextval, 'karim',5100);
+
+1 row created.
+
+SQL>
+SQL> insert into seq_emp_table(id,name,salary) values(emp_seq_tble.nextval, 'karim',5100);
+
+1 row created.
+
+SQL> insert into seq_emp_table(id,name,salary) values(emp_seq_tble.nextval, 'karim',5100);
+
+1 row created.
+
+SQL> insert into seq_emp_table(id,name,salary) values(emp_seq_tble.nextval, 'karim',5100);
+
+1 row created.
+
+SQL> insert into seq_emp_table(id,name,salary) values(emp_seq_tble.nextval, 'karim',5100);
+
+1 row created.
+
+SQL> insert into seq_emp_table(id,name,salary) values(emp_seq_tble.nextval, 'karim',5100);
+
+1 row created.
+
+SQL> insert into seq_emp_table(id,name,salary) values(emp_seq_tble.nextval, 'karim',5100);
+
+1 row created.
+
+SQL> select * from seq_emp_table;
+
+        ID NAME                               SALARY
+---------- ------------------------------ ----------
+         1 karim                                5000
+         6 karim                                5000
+        11 karim                                5100
+        16 karim                                5100
+        21 karim                                5100
+        26 karim                                5100
+        31 karim                                5100
+        36 karim                                5100
+        41 karim                                5100
+
+9 rows selected.
+
+=========================update rows=================================
+
+SQL> update seq_emp_table set name='russia' where id=41;
+
+1 row updated.
+
+SQL> select * from seq_emp_table;
+
+        ID NAME                               SALARY
+---------- ------------------------------ ----------
+         1 karim                                5000
+         6 karim                                5000
+        11 karim                                5100
+        16 karim                                5100
+        21 karim                                5100
+        26 karim                                5100
+        31 karim                                5100
+        36 karim                                5100
+        41 russia                               5100
+
+9 rows selected.
+
+

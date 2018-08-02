@@ -1,0 +1,400 @@
+=====================question for orqcle from chapter 1 to 10==============================
+1.create an user name eid
+2. create following tables;
+	A. department
+		Fields: dep_id, department_name	
+	B. employee
+		Fields: emp_id, emp_name, mobile unique, salary more than 10000,
+		joining_date using default, country default as BD,
+		dep_id Foreign Key with department
+	C. Show Both table Structres.
+3. Create sequence for
+	A. department incremented by 10
+	B. employee incremented by 5
+	C. Show created sequence list.
+	
+4. Department table:
+	A. show index
+	B. create an index for the column department_name
+	C. show index again.
+	D.Insert 3 data's to departments for ADMIN, SOFTWARE and MARKETING 
+	  using Sequence.
+	E. create view for department
+	F. Show View List
+	G. create synonym for table and View
+	H. retrieve data from view, table synonym and view synonym.
+5. Employee table:
+	A. show index
+	B. create an index for the column emp_name
+	C. show sequence again.
+	D.Insert 5 data's to employee 
+	  using sequence.
+	E. create view for employee
+	F. Show View List
+	G. create synonym for table and View
+	H. retrieve data from view, table synonym and view synonym.
+	
+6.  A. update MARKETING department to SALES
+	B. add new column at employee table like email unique
+	C. update first row of employee table with department SALES.
+	D. 
+
+
+
+
+
+
+
+
+
+========= 1 ==================
+SQL> create user eid identified by eid;
+
+User created.
+SQL> grant dba to eid;
+
+Grant succeeded.
+
+SQL> connect
+Enter user-name: eid
+Enter password:
+Connected.
+
+========= 2.a ==================
+SQL> create table department (dep_id number(3) primary key, dep_name varchar2(25));
+
+Table created.
+
+========= 2.b ==================
+SQL>  create table employee (emp_id number(3) primary key, emp_name varchar2(25), moblie number(11) unique, salary number(7) 
+check(salary>10000), joining_date date default sysdate, country varchar2(25) default 'bd', department_id number(3),
+ constraint dep_emp_fk foreign key (department_id) references department(dep_id));
+
+Table created.
+
+========= 2.c ==================
+SQL> describe department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEP_ID                                    NOT NULL NUMBER(3)
+ DEP_NAME                                           VARCHAR2(25)
+
+ 
+ =========data inser for department table======================
+SQL> describe employee ;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                    NOT NULL NUMBER(3)
+ EMP_NAME                                           VARCHAR2(25)
+ MOBLIE                                             NUMBER(11)
+ SALARY                                             NUMBER(7)
+ JOINING_DATE                                       DATE
+ COUNTRY                                            VARCHAR2(25)
+ DEPARTMENT_ID                                      NUMBER(3)
+
+ ========= 3.a ==================
+SQL>  create sequence dep_seq increment by 10 maxvalue 100 start with 1 minvalue 1 nocycle nocache;
+
+Sequence created.
+
+ ========= 3.b ==================
+SQL> create sequence emp_seq increment by 5 maxvalue 100 start with 1 minvalue 1 nocycle nocache;
+
+Sequence created.
+
+ ========= 3.c ==================
+SQL> select sequence_name from user_sequences;
+
+SEQUENCE_NAME
+------------------------------
+DEP_SEQ
+EMP_SEQ
+
+SQL> insert into department(DEP_ID, DEP_NAME) values(dep_seq.nextval,'wadud');
+
+1 row created.
+
+SQL> insert into department(DEP_ID, DEP_NAME) values(dep_seq.nextval,'whiud');
+
+1 row created.
+
+SQL> insert into department(DEP_ID, DEP_NAME) values(dep_seq.nextval,'abdul');
+
+1 row created.
+
+SQL> insert into department(DEP_ID, DEP_NAME) values(dep_seq.nextval,'mustafiz');
+
+1 row created.
+
+SQL> insert into department(DEP_ID, DEP_NAME) values(dep_seq.nextval,'shofiq');
+
+1 row created.
+
+SQL> select * from department;
+
+    DEP_ID DEP_NAME
+---------- -------------------------
+         1 wadud
+        11 whiud
+        21 abdul
+        31 mustafiz
+        41 shofiq
+
+	
+	
+		
+===============4.a===================
+SQL> select index_name from user_indexes;
+
+INDEX_NAME
+------------------------------
+SYS_C007156
+SYS_C007158
+SYS_C007159
+
+===============4.b===================
+SQL> create index depNa_idx on department(DEP_NAME);
+
+Index created.
+
+===============4.c===================
+SQL> select index_name from user_indexes;
+
+INDEX_NAME
+------------------------------
+SYS_C007156
+SYS_C007158
+SYS_C007159
+DEPNA_IDX
+
+
+===============4.d===================
+SQL>  update department set DEP_NAME='admin' where DEP_ID=1;
+
+1 row updated.
+
+SQL> update department set DEP_NAME='software' where DEP_ID=11;
+
+1 row updated.
+
+SQL> update department set DEP_NAME='marketing' where DEP_ID=21;
+
+1 row updated.
+
+SQL> select * from department;
+
+    DEP_ID DEP_NAME
+---------- -------------------------
+         1 admin
+        11 software
+        21 marketing
+        31 mustafiz
+        41 shofiq
+
+============== 4.e ================
+==============create view=================== 
+		SQL> create view dep_view as select DEP_ID, DEP_NAME from department where DEP_ID=1;
+
+View created.
+
+
+============== 4.f ================
+SQL> select view_name from user_views;
+
+VIEW_NAME
+------------------------------
+DEP_VIEW
+EMP_VIEW
+
+
+
+
+============== 4.g ================
+SQL> create synonym department_of_emp for department;
+
+Synonym created.
+
+SQL>  create synonym view_of_department for dep_view;
+
+Synonym created.
+
+
+============== 4.g ================
+SQL>  update department set DEP_NAME='admin' where DEP_ID=1;
+
+1 row updated.
+
+SQL> update department set DEP_NAME='software' where DEP_ID=11;
+
+1 row updated.
+
+SQL> update department set DEP_NAME='marketing' where DEP_ID=21;
+
+1 row updated.
+
+SQL> select * from department_of_emp;
+
+    DEP_ID DEP_NAME
+---------- -------------------------
+         1 admin
+        11 software
+        21 marketing
+        31 mustafiz
+        41 shofiq
+
+SQL> select * from view_of_department;
+
+    DEP_ID DEP_NAME
+---------- -------------------------
+         1 admin
+
+
+
+
+============== 5.a ================
+SQL> select index_name from user_indexes;
+
+INDEX_NAME
+------------------------------
+SYS_C007156
+SYS_C007158
+SYS_C007159
+DEPNA_IDX
+
+
+============== 5.b ================
+SQL> create index empNa_idx on employee(EMP_NAME);
+
+Index created.
+
+============== 5.c ================
+SQL> select sequence_name from user_sequences;
+
+SEQUENCE_NAME
+------------------------------
+DEP_SEQ
+
+
+============== 5.d ================
+		
+SQL> insert into employee(EMP_ID, EMP_NAME, MOBLIE, SALARY, COUNTRY, DEPARTMENT_ID) values(emp_seq.nextval,'ttttt',01236549870,1234564,'afganistan',1);
+
+1 row created.
+
+SQL> select * from employee;
+SQL> insert into employee(EMP_ID, EMP_NAME, MOBLIE, SALARY, COUNTRY, DEPARTMENT_ID) values(emp_seq.nextval,'ttttt',01286549870,1234564,'seria',1);
+
+1 row created.
+
+SQL> insert into employee(EMP_ID, EMP_NAME, MOBLIE, SALARY, COUNTRY, DEPARTMENT_ID) values(emp_seq.nextval,'ttttt',01236549820,1234564,'truky',11);
+
+1 row created.
+
+SQL> insert into employee(EMP_ID, EMP_NAME, MOBLIE, SALARY, COUNTRY, DEPARTMENT_ID) values(emp_seq.nextval,'ttttt',01236949870,1234564,'afganistan',21);
+
+1 row created.
+
+SQL> insert into employee(EMP_ID, EMP_NAME, MOBLIE, SALARY, DEPARTMENT_ID) values(emp_seq.nextval,'ttttt',01236549810,1234564,31);
+
+1 row created.
+SQL> select * from employee;
+
+    EMP_ID EMP_NAME                      MOBLIE     SALARY JOINING_D
+---------- ------------------------- ---------- ---------- ---------
+COUNTRY                   DEPARTMENT_ID
+------------------------- -------------
+         1 ttttt                     1236549870    1234564 02-AUG-18
+afganistan                            1
+
+         6 ttttt                     1286549870    1234564 02-AUG-18
+seria                                 1
+
+        11 ttttt                     1236549820    1234564 02-AUG-18
+truky                                11
+
+
+    EMP_ID EMP_NAME                      MOBLIE     SALARY JOINING_D
+---------- ------------------------- ---------- ---------- ---------
+COUNTRY                   DEPARTMENT_ID
+------------------------- -------------
+        16 ttttt                     1236949870    1234564 02-AUG-18
+afganistan                           21
+
+        21 ttttt                     1236549810    1234564 02-AUG-18
+bd                                   31
+
+
+==============================5.e===============
+SQL> create view emp_view as select EMP_ID, EMP_NAME, DEPARTMENT_ID from employee;
+
+View created.
+
+
+
+SQL> select * from emp_view;
+
+    EMP_ID EMP_NAME                  DEPARTMENT_ID
+---------- ------------------------- -------------
+         1 ttttt                                 1
+         6 ttttt                                 1
+        11 ttttt                                11
+        16 ttttt                                21
+        21 ttttt                                31
+
+
+
+==============================5.f===============		
+		SQL> select view_name from user_views;
+
+VIEW_NAME
+------------------------------
+DEP_VIEW
+EMP_VIEW
+
+================5.g===========
+SQL> create synonym view_of_emp for emp_view;
+
+Synonym created.
+
+SQL>  create synonym employee_table for employee;
+
+Synonym created.
+
+
+================5.h ============
+SQL> select * from view_of_emp;
+
+    EMP_ID EMP_NAME                  DEPARTMENT_ID
+---------- ------------------------- -------------
+         1 ttttt                                 1
+         6 ttttt                                 1
+        11 ttttt                                11
+        16 ttttt                                21
+        21 ttttt                                31
+
+SQL> select * from employee_table;
+
+    EMP_ID EMP_NAME                      MOBLIE     SALARY JOINING_D
+---------- ------------------------- ---------- ---------- ---------
+COUNTRY                   DEPARTMENT_ID
+------------------------- -------------
+         1 ttttt                     1236549870    1234564 02-AUG-18
+afganistan                            1
+
+         6 ttttt                     1286549870    1234564 02-AUG-18
+seria                                 1
+
+        11 ttttt                     1236549820    1234564 02-AUG-18
+truky                                11
+
+
+    EMP_ID EMP_NAME                      MOBLIE     SALARY JOINING_D
+---------- ------------------------- ---------- ---------- ---------
+COUNTRY                   DEPARTMENT_ID
+------------------------- -------------
+        16 ttttt                     1236949870    1234564 02-AUG-18
+afganistan                           21
+
+        21 ttttt                     1236549810    1234564 02-AUG-18
+bd                                   31
+
