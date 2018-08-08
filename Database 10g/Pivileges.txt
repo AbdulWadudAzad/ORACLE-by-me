@@ -1,0 +1,207 @@
+
+========================================== Pivileges =====================================
+QL> connect sys as sysdba
+Enter password:
+Connected.
+SQL> create user xyz identified by xyz;
+
+User created.
+
+SQL> connect
+Enter user-name: xyz
+Enter password:
+ERROR:
+ORA-01045: user XYZ lacks CREATE SESSION privilege; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> connect sys as sysdba
+Enter password:
+Connected.
+SQL> grant CREATE SESSION to xyz;
+
+Grant succeeded.
+
+SQL> grant CREATE table to xyz;
+
+Grant succeeded.
+
+SQL> connect
+Enter user-name: xyz
+Enter password:
+Connected.
+SQL> create table test(id number(3) primary key, name varchar2(20));
+create table test(id number(3) primary key, name varchar2(20))
+*
+ERROR at line 1:
+ORA-01950: no privileges on tablespace 'SYSTEM'
+
+
+SQL> connect sys as sysdba
+Enter password:
+Connected.
+
+
+
+SQL> alter user xyz quota 50m on system;
+
+User altered.
+
+
+
+
+SQL> connect
+Enter user-name: xyz
+Enter password:
+Connected.
+SQL> create table test(id number(3) primary key, name varchar2(20));
+
+Table created.
+
+
+SQL> describe test;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(3)
+ NAME                                               VARCHAR2(20)
+
+
+
+
+SQL> insert into test(id, name) values(01, 'abdul');
+
+1 row created.
+
+SQL> insert into test(id, name) values(02, 'wadud');
+
+1 row created.
+
+SQL> select * from test;
+
+        ID NAME
+---------- --------------------
+         1 abdul
+         2 wadud
+		 
+		 
+		 
+		 ========================= Playing with user <- Role <- Privileges ==================================
+		 
+SQL> connect sys as sysdba;
+Enter password:
+Connected.
+SQL> create role manager;
+
+Role created.
+
+SQL> grant CREATE session, CREATE table, CREATE view to manager;
+
+Grant succeeded.
+
+SQL> create user xyz2 identified by xyz2;
+
+User created.
+
+SQL> create role manager;
+create role manager
+            *
+ERROR at line 1:
+ORA-01921: role name 'MANAGER' conflicts with another user or role name
+
+
+SQL> create role manager2;
+
+Role created.
+
+SQL> grant manager to xyz2;
+
+Grant succeeded.
+
+SQL> alter user xyz2 quota 500m on system;
+
+User altered.
+
+SQL> connect
+Enter user-name: xyz2
+Enter password:
+Connected.
+
+
+SQL> create table tara(id number(3), name varchar2(15));
+
+Table created.
+
+
+
+SQL> insert into tara (id,name) values(21,'gazi');
+
+1 row created.
+
+SQL> insert into tara (id,name) values(21,'iman');
+
+1 row created.
+
+SQL> create view tara_view as select name from tara;
+
+View created.
+
+SQL> select * from tara_view;
+
+NAME
+---------------
+gazi
+iman
+
+SQL> connect sys as sysdba;
+Enter password:
+Connected.
+SQL> revoke create view from manager;
+
+Revoke succeeded.
+
+SQL> select * from tara_view;
+select * from tara_view
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL>
+
+
+========================================== display pivileges =====================================
+select * from user_sys_privs;
+
+select * from user_tab_privs;
+
+select * from user_role_privs;
+
+
+
+=========================================display table of another user =======================
+
+SQL> connect sys as sysdba;
+Enter password:
+Connected.
+SQL> grant select on xyz.text to xyz2 with grant option;
+grant select on xyz.text to xyz2 with grant option
+                    *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL>  grant select on xyz.test to xyz2 with grant option;
+
+Grant succeeded.
+
+SQL> select * from xyz.test;
+
+        ID NAME
+---------- --------------------
+         1 abdul
+         2 wadud
+
+
+
+
+
