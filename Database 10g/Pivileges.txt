@@ -85,6 +85,8 @@ SQL> select * from test;
 		 
 		 
 		 
+		 
+		 
 		 ========================= Playing with user <- Role <- Privileges ==================================
 		 
 SQL> connect sys as sysdba;
@@ -169,6 +171,36 @@ ORA-00942: table or view does not exist
 SQL>
 
 
+
+===================================== use revok for delete =====================================
+
+SQL> create view tara_view as select name from tara;
+
+View created.
+
+SQL> select * from tara_view;
+
+NAME
+---------------
+gazi
+iman
+
+SQL> connect sys as sysdba;
+Enter password:
+Connected.
+SQL> revoke create view from manager;
+
+Revoke succeeded.
+
+SQL> select * from tara_view;
+select * from tara_view
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+
+
 ========================================== display pivileges =====================================
 select * from user_sys_privs;
 
@@ -202,6 +234,244 @@ SQL> select * from xyz.test;
          2 wadud
 
 
+		 
+		 
+		 ======================== insert to user user2 table and display data of user2 table from user1 user =============================
+
+
+
+SQL> connect sys as sysdba
+Enter password:
+Connected.
+
+SQL> create user user1 identified by user1 ;
+
+User created.
+
+SQL> connect
+Enter user-name: user1
+Enter password:
+ERROR:
+ORA-01045: user USER1 lacks CREATE SESSION privilege; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> connect sys as sysdba
+Enter password:
+Connected.
+SQL> grant CREATE SESSION to user1;
+
+Grant succeeded.
+
+SQL> connect
+Enter user-name: user1
+Enter password:
+Connected.
+SQL> create table use1table (id number(3) primary key, name varchar2(15));
+create table use1table (id number(3) primary key, name varchar2(15))
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges
+
+
+SQL> connect sys as sysdba
+Enter password:
+Connected.
+SQL> alter user user1 quota 50m on system;
+
+User altered.
+
+SQL> connect
+Enter user-name: user1
+Enter password:
+Connected.
+SQL> create table use1table (id number(3) primary key, name varchar2(15));
+create table use1table (id number(3) primary key, name varchar2(15))
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges
+
+
+SQL> connect sys as sysdba
+Enter password:
+Connected.
+SQL>  grant CREATE table to user1;
+
+Grant succeeded.
+
+SQL> connect
+Enter user-name: user1
+Enter password:
+Connected.
+SQL> create table use1table (id number(3) primary key, name varchar2(15));
+
+Table created.
+
+SQL> insert into use1table (id, name) values(101, 'ahsan');
+
+1 row created.
+
+SQL> insert into use1table (id, name) values(102, 'ahmad');
+
+1 row created.
+
+SQL> select * from use1table;
+
+        ID NAME
+---------- ---------------
+       101 ahsan
+       102 ahmad
+
+SQL> create user user1 identified by user2 ;
+create user user1 identified by user2
+                                *
+ERROR at line 1:
+ORA-01031: insufficient privileges
+
+
+SQL> connect sys as sysdba
+Enter password:
+Connected.
+SQL> create user user2 identified by user2 ;
+
+User created.
+
+SQL> grant CREATE SESSION to user2;
+
+Grant succeeded.
+
+SQL> grant CREATE table to user2;
+
+Grant succeeded.
+
+SQL> alter user user2 quota 50m on system;
+
+User altered.
+
+SQL> connect
+Enter user-name: user2
+Enter password:
+Connected.
+SQL> create table use2table (id number(3) primary key, name varchar2(15), subject varchar2(20));
+
+Table created.
+
+SQL> insert into use2table (id, name, subject) values(01, 'yeasin', 'math');
+
+1 row created.
+
+SQL> insert into use2table (id, name, subject) values(02, 'rumi', 'social science');
+
+1 row created.
+
+SQL> select * from use2table;
+
+        ID NAME            SUBJECT
+---------- --------------- --------------------
+         1 yeasin          math
+         2 rumi            social science		 
+SQL> connect sys as sysdba
+Enter password:
+Connected.
+SQL> grant select, insert on user2.use2table to user1 with grant option;
+
+Grant succeeded.
+
+SQL> connect
+Enter user-name: user1
+Enter password:
+Connected.
+SQL> select * from user2.use2table;
+
+        ID NAME            SUBJECT
+---------- --------------- --------------------
+         1 yeasin          math
+         2 rumi            social science
+
+SQL> insert into user2.use2table(id,name,subject) values(03,'azad','finance');
+
+1 row created.
+
+SQL> select * from user2.use2table;
+
+        ID NAME            SUBJECT
+---------- --------------- --------------------
+         1 yeasin          math
+         2 rumi            social science
+         3 azad            finance
+
+
+
+		 
+		 
+================================= =======================================
+
+SQL> connect sys as sysdba
+Enter password:
+Connected.
+SQL> create role oraclerole;
+
+Role created.
+
+SQL> create user oracle1 identified by oracle1;
+
+User created.
+
+SQL> grant oraclerole to oracle1;
+
+Grant succeeded.
+
+SQL> grant create session, create table to oraclerole;
+
+Grant succeeded.
+
+SQL> create role oracle2role;
+
+Role created.
+
+SQL> create user oracle2 identified by oracle2;
+
+User created.
+
+SQL> grant oracle2role to oracle2;
+
+Grant succeeded.
+
+SQL> grant create session, create table to oracle2role;
+
+Grant succeeded.
+
+SQL> alter user oracle1 quota 100m on system;
+
+User altered.
+
+SQL> alter user oracle2 quota 100m on system;
+
+User altered.
+
+SQL> grant select, insert on hr.employees to oracle1;
+
+Grant succeeded.
+
+SQL>  grant select, insert on hr.employees to oracle2;
+
+Grant succeeded.
+
+SQL> grant select, insert on hr.departments to oracle1;
+
+Grant succeeded.
+
+SQL> grant select, insert on hr.departments to oracle2;
+
+Grant succeeded.
+
+SQL> grant select, insert on hr.locations to oracle1;
+
+Grant succeeded.
+
+SQL> grant select, insert on hr.locations to oracle2;
+
+Grant succeeded.
 
 
 
