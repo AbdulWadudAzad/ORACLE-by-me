@@ -1,0 +1,178 @@
+======================chapter 3 page-14==========
+declare  
+message varchar2(20):='Hello world!';
+begin 
+dbms_output.put_line(message);
+end; 
+
+
+=============chapter 4 page-18==================
+declare  
+num1 integer;
+num2 real;
+num3 double precision;
+begin 
+null;
+end; 
+
+
+
+
+=============chapter 4 page-21==================
+
+declare  
+subtype name is char(20);
+subtype message is varchar2(100);
+salutation name;
+greetings message;
+begin
+salutation := 'reader';
+greetings := 'welcome to the world of pl/sql';
+dbms_output.put_line('hello ' || salutation  || greetings );
+end; 
+
+=====output of chapter 4 page-21====
+hello reader              welcome to the world of pl/sql
+
+Statement processed.
+
+
+
+
+=============chapter 5 page-23==================
+declare  
+a integer := 10;
+b integer := 20;
+c integer;
+f real;
+begin 
+c := a+b;
+dbms_output.put_line('value of c: ' || c); 
+f := 70.0/3.0;
+dbms_output.put_line('value of f: ' || f); 
+end; 
+/
+
+=====output===
+value of c: 30
+value of f: 23.33333333333333333333333333333333333333
+
+Statement processed.
+
+
+
+=============chapter 5 page-24==================
+declare 
+--global variables 
+num1 number := 95;
+num2 number := 85;
+begin 
+
+dbms_output.put_line('outer variable num1 : ' || num1 ); 
+dbms_output.put_line('outer variable num2 : ' || num2 ); 
+declare
+--local variables
+num1 number := 195;
+num2 number := 185;
+begin
+dbms_output.put_line('inner variable num1 : ' || num1 ); 
+dbms_output.put_line('inner variable num2 : ' || num2 ); 
+end; 
+end;
+
+=====output===
+outer variable num1 : 95
+outer variable num2 : 85
+inner variable num1 : 195
+inner variable num2 : 185
+
+Statement processed.
+
+===============another one of page-24==================
+create table customers( id int not null,
+name varchar (20) not null,
+age int not null,
+address char (25),
+salary decimal (18, 2),
+primary key (id));
+
+
+Table created.
+
+describe customers;
+
+
+
+declare  
+c_id customers.id%type :=1;
+c_name customers.name%type;
+c_addr customers.address%type;
+c_sal customers.salary%type;
+begin 
+select name, address, salary into c_name, c_addr, c_sal 
+from customers 
+whrere id=c_id;
+dbms_output.put_line
+('customer ' ||c_name || ' form ' || c_addr || ' earns ' || c_sal);
+end; 
+
+
+
+
+=============chapter 7 page-29==================
+
+declare  
+a number (2) := 21;
+b number (2) := 10;
+
+begin
+if (a = b) then
+dbms_output.put_line('line 1 - a is equal to b');
+else 
+dbms_output.put_line('line 1 - a is equal not to b');
+end if;
+
+if (a < b) then
+dbms_output.put_line('line 2 - a is less than b');
+else 
+dbms_output.put_line('line 2 - a is not less than b');
+end if;
+
+
+if (a > b)then
+dbms_output.put_line('line 3 - a is greater than b');
+else 
+dbms_output.put_line('line 3 - a is not greater than b');
+end if;
+
+--lets change value of a and b 
+a := 5;
+b := 20;
+if (a <= b) then
+dbms_output.put_line('line 4 - a is either equal or less than b');
+end if;
+
+if (b >= a) then
+dbms_output.put_line('line 5 - b is either equal or greater than a');
+end if;
+
+if (a <> b) then
+dbms_output.put_line('line 6 - a is not equal to b');
+else 
+
+
+dbms_output.put_line('line 6 - a is equal to b');
+end if;
+
+end; 
+
+======= answare ofchapter 7 page-29========
+
+line 1 - a is equal not to b
+line 2 - a is not less than b
+line 3 - a is greater than b
+line 4 - a is either equal or less than b
+line 5 - b is either equal or greater than a
+line 6 - a is not equal to b
+
+Statement processed.

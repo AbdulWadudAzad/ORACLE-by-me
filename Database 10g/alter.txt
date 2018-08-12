@@ -1,0 +1,98 @@
+============================ Alter ====================================
+
+SQL> connect
+Enter user-name: qqq
+Enter password:
+Connected.
+SQL> select table_name from user_tables;
+
+TABLE_NAME
+------------------------------
+ABC
+TEST
+QQQ
+TEACHER
+STUDENT
+SEQ_TABLE
+EEE
+SEQ_DEP_TABLE
+SEQ_EMP_TABLE
+SEQ_EMP_TABLE2
+SYN_TABLE
+
+TABLE_NAME
+------------------------------
+DEPARTMENT
+EMPLOYEE
+
+13 rows selected.
+
+SQL> describe test;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(11)
+ NAME                                      NOT NULL VARCHAR2(20)
+ CREATE_DATE                                        DATE
+
+SQL> alter table test add (country varchar2(20) default 'bangladesh');
+
+Table altered.
+
+SQL> describe test;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(11)
+ NAME                                      NOT NULL VARCHAR2(20)
+ CREATE_DATE                                        DATE
+ COUNTRY                                            VARCHAR2(20)
+
+SQL> alter table test modify (country varchar2(15));
+
+Table altered.
+
+SQL> describe test;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(11)
+ NAME                                      NOT NULL VARCHAR2(20)
+ CREATE_DATE                                        DATE
+ COUNTRY                                            VARCHAR2(15)
+
+SQL> alter table test drop column country;
+
+Table altered.
+
+SQL> describe test;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(11)
+ NAME                                      NOT NULL VARCHAR2(20)
+ CREATE_DATE                                        DATE
+ 
+ 
+SQL> describe altertable;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(3)
+ NAME                                      NOT NULL VARCHAR2(20)
+ PHONE                                              NUMBER(11)
+
+SQL> alter table altertable set unused (phone);
+
+Table altered.
+
+SQL> describe altertable;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(3)
+ NAME                                      NOT NULL VARCHAR2(20)
+
+SQL> alter table altertable drop unused columns;
+
+Table altered.
+
+SQL> describe altertable;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(3)
+ NAME                                      NOT NULL VARCHAR2(20)

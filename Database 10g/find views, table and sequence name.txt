@@ -34,4 +34,13 @@ SART_SEQ
 
 
 ===================
-===================
+===================change password of user=============================
+SQL> alter user oracle1 identified by 123;
+
+User altered.
+
+SQL> connect
+Enter user-name: oracle1
+Enter password:
+Connected.
+SQL>
