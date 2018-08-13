@@ -176,3 +176,510 @@ line 5 - b is either equal or greater than a
 line 6 - a is not equal to b
 
 Statement processed.
+
+
+
+
+=============chapter 7 page-31===================
+======1st======
+declare
+procedure compare (value varchar2, pattern varchar2) is
+BEGIN
+if value like pattern then
+dbms_output.put_line('True');
+else
+dbms_output.put_line('False');
+end if;
+end;
+
+BEGIN
+compare ('Zara Ali', 'Z%A_i');
+compare ('Nuha Ali', 'Z%A_i');
+end;
+
+====Ans of first one of chapter 7 page-31=====
+True
+False
+
+Statement processed.
+
+
+
+
+
+==========2nd==========
+declare
+x number(2) := 10;
+degin 
+if (x between 5 and 20) then
+dbms_output.put_line('True');
+else
+dbms_output.put_line('False');
+end if;
+
+
+if (x between 5 and 10) then
+dbms_output.put_line('True');
+else
+dbms_output.put_line('False');
+end if;
+
+
+if (x between 11 and 20) then
+dbms_output.put_line('True');
+else
+dbms_output.put_line('False');
+end if;
+end;
+
+====Ans of 2nd one of chapter 7 page-31=====
+True
+True
+False
+
+Statement processed.
+
+
+
+
+=======================chapter 7 page-32=======================
+
+declare
+letter varchar2(1) := 'm';
+begin 
+if (letter in ('a', 'b', 'c')) then
+dbms_output.put_line('True');
+else
+dbms_output.put_line('False');
+end if;
+
+if (letter in ('m', 'n', 'o')) then
+dbms_output.put_line('True');
+else
+dbms_output.put_line('False');
+end if;
+
+if (letter is null) then
+dbms_output.put_line('True');
+else
+dbms_output.put_line('False');
+end if;
+end;
+
+====Ans of chapter 7 page-32=====
+False
+True
+False
+
+Statement processed.
+
+
+
+
+
+=======================chapter 7 page-33=======================
+declare
+a Boolean := true;
+b Boolean := false;
+
+begin 
+if (a and b) then
+dbms_output.put_line('Line 1 - condition is true');
+end if;
+
+if (a or b) then
+dbms_output.put_line('Line 2 - condition is true');
+end if;
+
+if (not a) then
+dbms_output.put_line('Line 3 - a is not true');
+else
+dbms_output.put_line('Line 3 - a is true');
+end if;
+
+if (not b) then
+dbms_output.put_line('Line 4 - b is not true');
+else
+dbms_output.put_line('Line 4 - b is true');
+end if;
+end;
+
+====Ans of chapter 7 page-33=====
+Line 2 - condition is true
+Line 3 - a is true
+Line 4 - b is not true
+
+Statement processed.
+
+
+
+
+
+=======================chapter 7 page-34=======================
+declare
+a number(2) := 20;
+b number(2) := 10;
+c number(2) := 15;
+d number(2) := 5;
+e number(2) ;
+
+begin 
+e := (a + b) * c / d;
+dbms_output.put_line('Value of (a + b) * c / d is : ' || e );
+
+e := ((a + b) * c )/ d;
+dbms_output.put_line('Value of ((a + b) * c )/ d is : ' || e );
+
+e := (a + b) * (c / d);
+dbms_output.put_line('Value of (a + b) * (c / d) is : ' || e );
+
+e := a +(b * c) / d;
+dbms_output.put_line('Value of a +(b * c) / d is : ' || e );
+end;
+
+====Ans of chapter 7 page-34=====
+Value of (a + b) * c / d is : 90
+Value of ((a + b) * c )/ d is : 90
+Value of (a + b) * (c / d) is : 90
+Value of a +(b * c) / d is : 50
+
+Statement processed.
+
+
+
+
+=======================chapter 7 page-37=======================
+declare
+a number(2) := 10;
+
+
+begin 
+a := 10;
+--check the Boolean condition using if statement
+if(a < 20 ) then
+--if condition is true then print the following
+ dbms_output.put_line('a is less than 20' );
+end if;
+ dbms_output.put_line('value of a is' || a );
+end;
+
+====Ans of chapter 7 page-37=====
+a is less than 20
+value of a is10
+
+Statement processed.
+
+
+
+=======================chapter 8 page-38=======================
+declare
+c_id customers.id%type := 1;
+c_sal customers.salary%type;
+begin
+select salary
+into c_sal
+from customers
+where id = c_id;
+if (c_sal <=2000) than 
+update customers
+set salary = salary + 1000
+where id = c_id;
+dbms_output.put_line ('Salary updated');
+end if;
+end
+
+
+====Ans of chapter 7 page-34=====
+
+
+
+
+=======================chapter 8 page-39=======================
+declare
+a  number(3) := 100;
+
+begin
+--check the Boolean condition using if statement
+if (a < 20 ) then
+--if condition is true then print the following
+dbms_output.put_line ('a is less than 20');
+else
+dbms_output.put_line ('a is not less than 20');
+end if;
+dbms_output.put_line ('value of a is :'|| a);
+end;
+
+
+====Ans of chapter 8 page-39=====
+a is not less than 20
+value of a is :100
+
+Statement processed.
+
+
+
+
+=======================chapter 8 page-40=======================
+declare
+a  number(3) := 100;
+
+begin
+
+if (a = 10 ) then
+dbms_output.put_line ('value of a is 10');
+elsif (a = 20 ) then
+dbms_output.put_line ('value of a is 20');
+elsif (a = 30 ) then
+dbms_output.put_line ('value of a is 30');
+else
+dbms_output.put_line ('not of the value is matching');
+end if;
+dbms_output.put_line ('Exact value of a is :'|| a);
+end;
+
+
+
+====Ans of chapter 8 page-40=====
+not of the value is matching
+Exact value of a is :100
+
+Statement processed
+
+
+
+=======================chapter 8 page-41=======================
+declare
+grade char(1) := 'A';
+
+begin
+case grade
+when 'A' then dbms_output.put_line ('Excellent');
+when 'B' then dbms_output.put_line ('Very good');
+when 'C' then dbms_output.put_line ('Well done');
+when 'D' then dbms_output.put_line ('You passed');
+when 'F' then dbms_output.put_line ('Better try again');
+else dbms_output.put_line ('No such grade');
+end case;
+end;
+
+====Ans of chapter 8 page-41=====
+Excellent
+
+Statement processed.
+
+
+
+
+
+=======================chapter 8 page-42=======================
+declare
+grade char(1) := 'B';
+
+begin
+case grade
+when 'A' then dbms_output.put_line ('Excellent');
+when 'B' then dbms_output.put_line ('Very good');
+when 'C' then dbms_output.put_line ('Well done');
+when 'D' then dbms_output.put_line ('You passed');
+when 'F' then dbms_output.put_line ('Better try again');
+else dbms_output.put_line ('No such grade');
+end case;
+end;
+
+====Ans of chapter 8 page-42=====
+Very good
+
+Statement processed.
+
+
+
+
+=======================chapter 8 page-43=======================
+declare
+a number(3) := 100;
+b number(3) := 200;
+
+begin
+--check the Boolean condition
+if (a= 100) then
+--if condition is true then check the following
+if (b = 200) then
+--if condition is true then print the following
+dbms_output.put_line ('Value of a is 100 and b is 200');
+end if;
+end if;
+dbms_output.put_line ('Exact value of a is :' || a );
+dbms_output.put_line ('Exact value of b is :' || b );
+end;
+
+
+====Ans of chapter 8 page-43=====
+Value of a is 100 and b is 200
+Exact value of a is :100
+Exact value of b is :200
+
+Statement processed.
+
+
+
+
+=======================chapter 9 page-45=======================
+declare
+x number := 10;
+
+
+begin
+loop
+dbms_output.put_line (x);
+x := x + 10;
+if x > 50 then
+
+exit;
+
+end if ;
+
+end loop;
+
+--after exit, control resume here
+dbms_output.put_line ('After exit x is :' || x );
+end;
+
+
+====Ans of chapter 9 page-45=====
+10
+20
+30
+40
+50
+After exit x is :60
+
+Statement processed.
+
+
+================another one for prectice==================
+declare
+x number := 10;
+
+
+begin
+loop
+dbms_output.put_line (x);
+x := x + 5;
+if x > 50 then
+
+exit;
+
+end if ;
+
+end loop;
+
+--after exit, control resume here
+dbms_output.put_line ('After exit x is :' || x );
+end;
+=====ans of prectice======
+10
+15
+20
+25
+30
+35
+40
+45
+50
+After exit x is :55
+
+Statement processed.
+
+
+
+
+=======================chapter 9 page-46=======================
+declare
+x number := 10;
+
+
+begin
+loop
+dbms_output.put_line (x);
+x := x + 10;
+exit when x > 50 ;
+
+end loop;
+
+--after exit, control resume here
+dbms_output.put_line ('After exit x is :' || x );
+end;
+
+
+
+====Ans of chapter 9 page-46=====
+10
+20
+30
+40
+50
+After exit x is :60
+
+
+=======================another one of chapter 9 page-46=======================
+declare
+a number(2) := 10;
+
+
+begin
+while a < 20
+loop
+dbms_output.put_line ('value of a: ' || a);
+a := a+1;
+end loop;
+
+end;
+
+
+====Ans of another one chapter 9 page-46=====
+value of a: 10
+value of a: 11
+value of a: 12
+value of a: 13
+value of a: 14
+value of a: 15
+value of a: 16
+value of a: 17
+value of a: 18
+value of a: 19
+
+Statement processed.
+
+
+
+
+
+=======================chapter 9 page-47=======================
+declare
+a number(2) ;
+
+
+begin
+for a in 10 .. 20
+loop
+dbms_output.put_line ('value of a: ' || a);
+
+end loop;
+
+end;
+
+
+====Ans of chapter 9 page-47=====
+value of a: 10
+value of a: 11
+value of a: 12
+value of a: 13
+value of a: 14
+value of a: 15
+value of a: 16
+value of a: 17
+value of a: 18
+value of a: 19
+value of a: 20
+
+Statement processed.
