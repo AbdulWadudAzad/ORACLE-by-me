@@ -683,3 +683,450 @@ value of a: 19
 value of a: 20
 
 Statement processed.
+
+
+
+
+
+
+=======================another one of chapter 9 page-47=======================
+declare
+a number(2);
+begin
+for a in reverse 10 .. 20
+loop
+dbms_output.put_line('value of a: '|| a);
+end loop;
+end;
+
+====Ans of another one of chapter 9 page-47=====
+value of a: 20
+value of a: 19
+value of a: 18
+value of a: 17
+value of a: 16
+value of a: 15
+value of a: 14
+value of a: 13
+value of a: 12
+value of a: 11
+value of a: 10
+
+Statement processed.
+
+
+
+
+
+=======================chapter 9 page-=======================
+declare
+a number(3);
+b number(3);
+begin
+a := 2;
+loop
+b := 2;
+loop
+exit when ((mod(a, b) = 0) or (b = a));
+b := a +1;
+end loop;
+if (b = a) then 
+dbms_output.put_line(a || 'is prime');
+end if;
+a := a + 1;
+exit when a = 50;
+end loop;
+
+end;
+====Ans of chapter 9 page-=====
+
+
+
+
+
+
+=======================chapter 9 page-50=======================
+declare
+i number(1);
+j number(1);
+begin
+<< outer_loop >>
+for i in 1 .. 3 loop
+<< inner_loop >>
+for j in 1 .. 3 loop
+dbms_output.put_line('i is: ' || i || ' and j is: ' || j);
+end loop inner_loop;
+end loop outer_loop;
+end;
+
+====Ans of chapter 9 page-50=====
+i is: 1 and j is: 1
+i is: 1 and j is: 2
+i is: 1 and j is: 3
+i is: 2 and j is: 1
+i is: 2 and j is: 2
+i is: 2 and j is: 3
+i is: 3 and j is: 1
+i is: 3 and j is: 2
+i is: 3 and j is: 3
+
+Statement processed.
+
+
+
+
+
+=======================chapter 9 page-52=======================
+declare
+a number(2) := 10;
+
+begin
+--while loop executetion
+while a < 20 loop
+dbms_output.put_line('value of a: '|| a);
+a:= a + 1;
+if a > 15 then
+-- terminate the loop using the exit statement
+
+exit;
+
+end if;
+
+end loop;
+end;
+
+====Ans of chapter 9 page-52=====
+value of a: 10
+value of a: 11
+value of a: 12
+value of a: 13
+value of a: 14
+value of a: 15
+
+Statement processed.
+
+
+
+
+=======================chapter 9 page-55=======================
+declare
+a number(2) := 10;
+
+begin
+<<loopstart>>
+--while loop executetion
+while a < 20 loop
+dbms_output.put_line('value of a: '|| a);
+a:= a + 1;
+if a = 15 then
+a := a  + 1 ;
+
+goto loopstart;
+
+end if;
+
+end loop;
+end;
+
+====Ans of chapter 9 page-55=====
+value of a: 10
+value of a: 11
+value of a: 12
+value of a: 13
+value of a: 14
+value of a: 16
+value of a: 17
+value of a: 18
+value of a: 19
+
+Statement processed.
+
+
+
+
+
+
+=======================chapter 9 page-=======================
+
+====Ans of chapter 9 page-=====
+
+
+
+
+
+=======================chapter 9 page-=======================
+
+====Ans of chapter 9 page-=====
+
+
+
+
+
+
+
+=======================chapter 9 page-=======================
+
+====Ans of chapter 9 page-=====
+
+
+
+
+
+
+
+
+
+=======================chapter 9 page-=======================
+
+====Ans of chapter 9 page-=====
+
+
+
+
+
+
+
+
+
+=======================chapter 9 page-=======================
+
+====Ans of chapter 9 page-=====
+
+
+
+
+
+
+
+
+
+=======================chapter 9 page-=======================
+
+====Ans of chapter 9 page-=====
+
+
+
+
+
+
+=======================chapter 12 page-66=======================
+create or replace procedure greetings
+as 
+begin
+dbms_output.put_line('Hello world');
+end;
+
+====Ans of chapter 12 page-66=====
+Procedure created.
+
+
+
+
+=======================chapter 12 page-67=======================
+begin
+ greetings;
+end;
+
+====Ans of chapter 12 page-67=====
+Hello world
+
+Statement processed.
+
+
+
+
+
+
+=======================chapter 9 page-=======================
+declare
+a number;
+b number;
+c number;
+pocedure findMin (x in number, y in number, z ouit number)is 
+beginif x < y then
+z:=x;
+else
+z:=y;
+end if;
+end;
+begina
+a:= 23;
+b:=45;
+findMin(a, b, c);
+dbms_output.put_line('Minimum of (23, 45): '||c);
+end;
+====Ans of chapter 9 page-=====
+
+
+
+
+
+=======================chapter  page-=======================
+
+====Ans of chapter  page-=====
+
+
+
+
+
+
+
+=======================chapter  page-=======================
+
+====Ans of chapter  page-=====
+
+
+
+
+
+
+
+
+=======================chapter  page-=======================
+create table student (user_id number(3) primary key, user_name varchar2(25));
+2)
+begin
+select aaa
+into P_aaa
+from student where user_id= p_userId;
+end;
+
+3)
+insert into student values(1, 'Admin");
+insert into student values(2, 'Ahmed");
+insert into student values(3, 'Anas");
+
+4)
+declare 
+p_username student.username%type;
+begin
+getstudentbyuserid(1,p_username);
+dbms_output.put_line(username: '|| p_username);
+emd;
+====Ans of chapter  page-=====
+
+
+
+
+
+
+
+
+
+
+
+=======================chapter  page-=======================
+
+====Ans of chapter  page-=====
+
+
+
+
+
+
+
+
+=======================chapter 16  page-84=======================
+declare
+c_id customers.id%type := 8;
+c_name customers.name%type;
+c_addr customers.address%type;
+
+begin
+select name, address into c_name, c_addr 
+from customers where id= c_id;
+
+dbms_output.put_line('Name: '|| c_name);
+dbms_output.put_line('Address: '|| c_addr);
+exception
+when no_data_found then
+dbms_output.put_line('No such customer!');
+
+when others then
+dbms_output.put_line('Error!');
+end;
+
+====Ans of chapter 16 page-84=====
+No such customer!
+
+Statement processed.
+
+
+
+
+
+
+
+=======================chapter 16 page-85=======================
+declare
+c_id customers.id%type := -6;
+c_name customers.name%type;
+c_addr customers.address%type;
+
+--user defined exception
+ex_invalid_id exception;
+begin
+if c_id <= 0 then
+raise ex_invalid_id;
+else 
+select name, address into c_name, c_addr
+from customers
+where id= c_id;
+
+dbms_output.put_line('name: '|| c_name);
+dbms_output.put_line('address : '|| c_addr);
+
+end if;
+exception
+
+when ex_invalid_id then
+
+dbms_output.put_line('ID must be greter then zero!');
+when no_data_found then
+dbms_output.put_line('No such customer!');
+when others then
+dbms_output.put_line('Error!');
+end;
+
+====Ans of chapter 16 page-85=====
+ID must be greter then zero!
+
+Statement processed.
+
+
+
+
+
+=======================chapter  page-=======================
+
+====Ans of chapter  page-=====
+
+
+
+
+
+
+=======================chapter  page-=======================
+
+====Ans of chapter  page-=====
+
+
+
+
+=======================chapter  page-=======================
+
+====Ans of chapter  page-=====
+
+
+
+
+
+
+
+
+=======================chapter  page-=======================
+
+====Ans of chapter  page-=====
+=======================chapter  page-=======================
+
+====Ans of chapter  page-=====

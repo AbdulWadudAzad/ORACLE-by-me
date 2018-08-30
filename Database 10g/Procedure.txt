@@ -1,0 +1,102 @@
+
+==========================insert procedure============================
+
+create or replace procedure insertabcde(
+p_id in abcde.id%type,
+ p_name in abcde.name%type,
+p_mobile in abcde.mobile%type,
+p_country abcde.country%type)
+is 
+begin 
+insert into abcde(id, name, mobile, country) values(p_id, p_name, p_mobile, p_country);
+end;
+/
+
+
+
+==========================insert data=============================(write in sql console)
+SQL> begin
+  2  insertabcde(SEQABCTABLE.nextval, 'wahid',01239876541,'uk');
+  3  end;
+  4  /
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from abcde;
+
+        ID NAME                     MOBILE COUNTRY
+---------- -------------------- ---------- --------------------
+         1 azad                 1234567891 usa
+         3 wadud                1234567892 uae
+         5 wahid                1239876541 uk
+
+
+
+==========================update procedure============================
+
+create or replace procedure updateabcde(
+p_id in abcde.id%type,
+ p_name in abcde.name%type,
+p_mobile in abcde.mobile%type,
+p_country abcde.country%type)
+is 
+begin 
+update abcde set name=p_name, mobile=p_mobile, country=p_country where id=p_id ;
+end;
+/
+
+Procedure created.
+
+
+==========================update data=============================(write in sql console)
+
+SQL> begin
+  2  updateabcde(5,'Mr. Kalam',78923165402,'japan');
+  3  end;
+  4  /
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from abcde;
+
+        ID NAME                     MOBILE COUNTRY
+---------- -------------------- ---------- --------------------
+         1 azad                 1234567891 usa
+         3 wadud                1234567892 uae
+         5 Mr. Kalam            7.8923E+10 japan
+
+
+
+
+=========================delete procedure============================
+create or replace procedure deleteabcde(
+p_id in abcde.id%type)
+is 
+begin 
+delete abcde where id=p_id ;
+end;
+ /
+
+Procedure created.
+
+SQL> begin
+  2  deleteabcde(3) ;
+ end;
+  /
+
+PL/SQL procedure successfully completed.
+
+SQL>  select * from abcde;
+
+        ID NAME                     MOBILE COUNTRY
+---------- -------------------- ---------- --------------------
+         1 azad                 1234567891 usa
+         5 Mr. Kalam            7.8923E+10 japan
+
+
+
+
+
+
+
+

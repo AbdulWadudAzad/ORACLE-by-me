@@ -1,0 +1,142 @@
+
+SQL> connect
+Enter user-name: qqq
+Enter password:
+Connected.
+SQL> create user abcd identified by abcd;
+
+User created.
+
+SQL> grant dba to abcd;
+
+Grant succeeded.
+
+SQL> create sequence seqabctable increment by 2 start with 1 maxvalue 100 nocycle nocache;
+
+Sequence created.
+
+ create table abcde (id number(3) primary key, name varchar2(20) not null, mobile number(11) unique, country varchar2(20) default 'BD');
+
+Table created.
+
+create table abcde_backup as select * from abcde;
+
+Table created.
+
+
+SQL> select * from abcde;
+
+no rows selected
+
+SQL> select * from abcde_backup;
+
+no rows selected
+
+==================INSERT trigger===================
+CREATE or REPLACE TRIGGER abcde_after_insert AFTER INSERT ON abcde
+FOR EACH ROW
+DECLARE
+BEGIN
+insert into abcde_backup values (:new.id, :new.name, :new.mobile, :new.country);
+DBMS_OUTPUT.PUT_LINE('Record successfully inserted into abcde_backup table');
+END;
+/   (include '/' in sql only after paste)
+
+SQL> insert into abcde (id,name,mobile,country) values(seqabctable.nextval,'azad',01234567891,'usa');
+
+1 row created.
+
+SQL> insert into abcde (id,name,mobile,country) values(seqabctable.nextval,'azan',01234567892,'uae');
+
+1 row created.
+
+SQL> select * from abcde;
+
+        ID NAME                     MOBILE COUNTRY
+---------- -------------------- ---------- --------------------
+         1 azad                 1234567891 usa
+         3 azan                 1234567892 uae
+
+SQL> select * from abcde_backup;
+
+        ID NAME                     MOBILE COUNTRY
+---------- -------------------- ---------- --------------------
+         1 azad                 1234567891 usa
+         3 azan                 1234567892 uae
+
+
+
+
+==================UPDATE trigger===================
+
+CREATE or REPLACE TRIGGER abcde_after_update 
+AFTER UPDATE ON abcde
+FOR EACH ROW
+DECLARE
+BEGIN
+update abcde_backup 
+set name=:new.name, mobile=:new.mobile, country=:new.country
+where id = :old.id;
+DBMS_OUTPUT.PUT_LINE('Record successfully updated into abcde and abcde_backup table');
+END;
+ /    (include '/' in sql only after paste)
+
+Trigger created.
+
+SQL> update abcde set name='wadud' where  id=3;
+
+1 row updated.
+
+==================reasult of update===================
+
+SQL> select * from abcde;
+
+        ID NAME                     MOBILE COUNTRY
+---------- -------------------- ---------- --------------------
+         1 azad                 1234567891 usa
+         3 wadud                1234567892 uae
+
+SQL> select * from abcde_backup;
+
+        ID NAME                     MOBILE COUNTRY
+---------- -------------------- ---------- --------------------
+         1 azad                 1234567891 usa
+         3 wadud                1234567892 uae
+
+
+
+
+
+===================delete========================
+
+CREATE or REPLACE TRIGGER abcde_after_delete 
+AFTER delete ON abcde
+FOR EACH ROW
+DECLARE
+BEGIN
+delete abcde_backup 
+where id = :old.id;
+DBMS_OUTPUT.PUT_LINE('Record successfully deleted from abcde and abcde_backup table');
+END;
+/ (include '/' in sql only after paste)
+
+Trigger created.
+
+SQL> delete from abcde where id=1;
+
+1 row deleted.
+
+
+==================reasult of delete trigger===================
+
+SQL> select *  from abcde;
+
+        ID NAME                     MOBILE COUNTRY
+---------- -------------------- ---------- --------------------
+         3 wadud                1234567892 uae
+
+SQL> select *  from abcde_backup;
+
+        ID NAME                     MOBILE COUNTRY
+---------- -------------------- ---------- --------------------
+         3 wadud                1234567892 uae
