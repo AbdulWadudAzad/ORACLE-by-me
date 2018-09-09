@@ -1,0 +1,36 @@
+create user ttt identified by ttt;
+
+User created.
+grant dba to ttt;
+Grant succeeded.
+create table customers(id number(2) primary key, name varchar2(15), mobile varchar2(11));
+create table customers_backup as select * from customers;
+
+create sequence cusseq increment by 1 start with 1 maxvalue 20 nocycle nocache;
+
+Sequence created.
+
+create or replace trigger customers_after_insert after insert on customers
+for each row
+declare
+begin
+insert into customers_backup values(:new.id, :new.name, :new.mobile);
+dbms_output.put_line('Record successfully inserted');
+end;
+
+
+
+create or replace procedure insertcustomers(
+p_id in customers.id%type,
+p_name in customers.name%type,
+p_mobile in customers.mobile%type)
+is
+begin
+insert into customers(id, name,mobile) values(p_id,p_name,p_mobile);
+end;
+
+
+begin 
+insertcustomers(cusseq.nextval, 'tawhid','12345678903');
+end;
+

@@ -1,0 +1,250 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Sun Sep 9 09:30:59 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect
+Enter user-name: eidd
+Enter password:
+Connected.
+SQL> describe employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                    NOT NULL NUMBER(3)
+ EMP_NAME                                           VARCHAR2(20)
+ MOBILE                                             NUMBER(11)
+ SALARY                                             NUMBER(7)
+ JOINING_DATE                                       DATE
+ COUNTRY                                            VARCHAR2(15)
+ DEP_ID                                             NUMBER(3)
+
+SQL> describe department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEP_ID                                    NOT NULL NUMBER(3)
+ DEPARTMENT_NAME                                    VARCHAR2(20)
+
+SQL> create table employee_backup as select * from employee;
+
+Table created.
+
+SQL> describe employee_backup;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                             NUMBER(3)
+ EMP_NAME                                           VARCHAR2(20)
+ MOBILE                                             NUMBER(11)
+ SALARY                                             NUMBER(7)
+ JOINING_DATE                                       DATE
+ COUNTRY                                            VARCHAR2(15)
+ DEP_ID                                             NUMBER(3)
+
+SQL> create sequence dep_seq increment by 10 start with 1 maxvalue 100 nocycle nocache;
+
+Sequence created.
+
+SQL> create sequence emp_seq increment by 5 start with 1 maxvalue 100 nocycle nocache;
+
+Sequence created.
+
+
+
+SQL> select sequence_name from user_sequences;
+
+SEQUENCE_NAME
+------------------------------
+DEP_SEQ
+EMP_SEQ
+
+SQL> set autocommit on;
+
+SQL> CREATE TABLE department_backup as select * from department;
+
+Table created.
+
+SQL> describe department_backup;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEP_ID                                             NUMBER(3)
+ DEPARTMENT_NAME                                    VARCHAR2(20)
+
+SQL>
+SQL> CREATE or REPLACE TRIGGER department_after_insert AFTER INSERT ON department
+  2  FOR EACH ROW
+  3  DECLARE
+  4  BEGIN
+  5  insert into department_backup values(:new.DEP_ID, :new.DEPARTMENT_NAME);
+  6  DBMS_OUTPUT.PUT_LINE('row inserted');
+  7  END;
+  8  /
+
+Trigger created.
+
+
+SQL> CREATE or REPLACE TRIGGER department_after_update AFTER UPDATE ON department
+  2  FOR EACH ROW
+  3  DECLARE
+  4  BEGIN
+  5  update department_backup
+  6  set DEPARTMENT_NAME= :new.DEPARTMENT_NAME
+  7  where DEP_ID=:old.DEP_ID;
+  8  DBMS_OUTPUT.PUT_LINE('row updated');
+  9  END;
+ 10  /
+
+Trigger created.
+
+SQL> CREATE or REPLACE TRIGGER department_after_delete AFTER DELETE ON department
+  2  FOR EACH ROW
+  3  DECLARE
+  4  BEGIN
+  5  delete department_backup
+  6  where DEP_ID=:old.DEP_ID;
+  7  DBMS_OUTPUT.PUT_LINE('row deleted');
+  8  END;
+  9  /
+
+Trigger created.
+
+
+SQL> select index_name from user_indexes;
+
+INDEX_NAME
+------------------------------
+SYS_C007374
+SYS_C007376
+SYS_C007377
+
+
+
+SQL> create index dep_index on department( DEPARTMENT_NAME);
+
+Index created.
+
+SQL> select index_name from user_indexes;
+
+INDEX_NAME
+------------------------------
+DEP_INDEX
+SYS_C007374
+SYS_C007376
+SYS_C007377
+
+SQL> CREATE or REPLACE PROCEDURE inserty_procedure_department(
+  2  p_DEP_ID in department.DEP_ID%type,
+  3  p_DEPARTMENT_NAME in department.DEPARTMENT_NAME%type)
+  4  IS
+  5  BEGIN
+  6  INSEERT INTO department(DEP_ID,DEPARTMENT_NAME) VALUES (p_DEP_ID,p_DEPARTMENT_NAME);
+  7  END;
+  8
+  9  /
+
+Warning: Procedure created with compilation errors.
+
+SQL>
+SQL> create or replace procedure inserty_procedure_department(
+  2  p_dep_id in department.dep_id%type,
+  3  p_department_name in department.department_name%type)
+  4  is
+  5  begin
+  6  inseert into department(dep_id,department_name) values (p_dep_id,p_department_name);
+  7  end;
+  8  /
+
+Warning: Procedure created with compilation errors.
+
+SQL> create or replace procedure inserty_procedure(
+  2  p_dep_id in department.dep_id%type,
+  3  p_department_name in department.department_name%type)
+  4  is
+  5  begin
+  6  insert into department(dep_id,department_name) values (p_dep_id,p_department_name);
+  7  end;
+  8  /
+
+Procedure created.
+
+SQL> insert into department values(dep_seq.nextval,'admin');
+
+1 row created.
+
+Commit complete.
+SQL> insert into department values(dep_seq.nextval,'software');
+
+1 row created.
+
+Commit complete.
+SQL> insert into department values(dep_seq.nextval,'marketing');
+
+1 row created.
+
+
+SQL> delete department;
+
+3 rows deleted.
+
+Commit complete.
+SQL> begin
+  2  inserty_procedure(dep_seq.nextval,'admin');
+  3  end;
+  4  /
+
+PL/SQL procedure successfully completed.
+
+Commit complete.
+SQL>
+SQL> begin
+  2  inserty_procedure(dep_seq.nextval,'software');
+  3  end;
+  4  /
+
+PL/SQL procedure successfully completed.
+
+Commit complete.
+SQL> begin
+  2  inserty_procedure(dep_seq.nextval,'marketing');
+  3  end;
+  4  /
+
+PL/SQL procedure successfully completed.
+
+Commit complete.
+SQL> create view dep_view as select  department_name from  department;
+
+View created.
+
+SQL> create synonym dep_table for department;
+
+Synonym created.
+
+SQL> create synonym dep_synoname for dep_view;
+
+Synonym created.
+
+SQL> select * from dep_synoname
+  2  ;
+
+DEPARTMENT_NAME
+--------------------
+marketing
+admin
+software
+
+SQL> select * from dep_view;
+
+DEPARTMENT_NAME
+--------------------
+marketing
+admin
+software
+
+SQL> select * from dep_table;
+
+    DEP_ID DEPARTMENT_NAME
+---------- --------------------
+        51 marketing
+        31 admin
+        41 software
+
+SQL>
