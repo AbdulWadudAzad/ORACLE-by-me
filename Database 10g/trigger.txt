@@ -140,3 +140,7 @@ SQL> select *  from abcde_backup;
         ID NAME                     MOBILE COUNTRY
 ---------- -------------------- ---------- --------------------
          3 wadud                1234567892 uae
+create or replace trigger abc_after_insert after insert on abc
+for each wow
+declare begin
+insert into abc_backup values(:new.id,:new..ane
